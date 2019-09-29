@@ -1,5 +1,5 @@
 from unittest import TestCase
-import fiction_segmentation.preprocessing.tokenize as tokenize
+from fiction_segmentation.preprocessing import tokenize
 
 
 class TestTokenize(TestCase):
@@ -15,5 +15,4 @@ class TestTokenize(TestCase):
             ['Tink', 'tonk', '.'],
             ['Bruh']
         ]
-        if tokenize(test_str)!=test_result:
-            self.fail()
+        self.assertEqual(tokenize(test_str) == test_result, True)
