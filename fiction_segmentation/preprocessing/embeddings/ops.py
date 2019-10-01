@@ -2,20 +2,36 @@ import numpy as np
 import csv
 import os
 import pickle
-
-def clean_encode_indices():
-    return
+from fiction_segmentation import const
 
 
-def encode_embdeddings():
-    return
+def clean_encode_indices(text, w2v_data_path=const.W2V_DATA_PATH):
+    _, word2idx = load_vocab(w2v_data_path)
+
+    encoded_text = []
+    # For each word in sentence, replace by number
+    for sent in text:
+        encoded_text.append([word2idx[word] for word in sent])
+
+    return encoded_text
+
+
+def sent_embed_encode(sent, w2v_data_path=const.W2V_DATA_PATH):
+    wv = load_embeddings(w2v_data_path)
+
+    # For each word in sentence, return embeddings
+    encoded_list = []
+    for word in sent:
+        encoded_list.append(wv[word])
+
+    return np.array(encoded_list)
 
 
 def save_vocab(vocab, export_path):
     """Save vocabulary as a dictionary and a list"""
     # Generate objects
     idx2word = vocab.keys()
-    word2idx = {word:idx for idx, word in enumerate(idx2word)}
+    word2idx = {word: idx for idx, word in enumerate(idx2word)}
 
     # Save list as CSV
     with open(os.path.join(export_path, 'idx2word.csv'), mode='w', newline='') as file:
