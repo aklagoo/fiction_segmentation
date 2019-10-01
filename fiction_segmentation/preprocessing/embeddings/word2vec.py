@@ -1,6 +1,6 @@
 import gensim.models.word2vec as word2vec
 from fiction_segmentation import const
-from fiction_segmentation import preprocessing as P
+from fiction_segmentation import preprocessing
 import multiprocessing
 import os
 import pickle
@@ -18,9 +18,9 @@ class Word2Vec:
                                        window=window, sample=sample)
 
     def generate_embeddings(self, text, epochs=const.W2V_EPOCHS, export_path=const.W2V_DATA_PATH):
-        sentences = P.stem(P.tokenize(text))
+        sentences = preprocessing.stem(preprocessing.tokenize(text))
         self.model.train(sentences, total_examples=self.model.corpus_count, epochs=epochs)
 
         # Save data to file
-        self.model.wv.save(os.path.join(export_path, 'wv.kv'))
-        P.embeddings.save_vocab(self.model.wv.vocab)
+        preprocessing.embeddings.save_vocab(self.model.wv.vocab, export_path)
+        preprocessing.embeddings.save_embeddings(self.model.wv, export_path)

@@ -1,7 +1,7 @@
+import numpy as np
 import csv
 import os
 import pickle
-
 
 def clean_encode_indices():
     return
@@ -40,8 +40,14 @@ def load_vocab(import_path):
     return idx2word, word2idx
 
 
-def save_embeddings(wv, idx2word, export_path):
+def save_embeddings(wv, export_path):
     # Generate dictionary from word vectors
-    embeddings = [wv[word] for word in idx2word]
+    embeddings = np.array([wv[word] for word in wv.vocab.keys()])
+
+    # Save embeddings
+    np.save(os.path.join(export_path, 'embeddings.npy'), embeddings)
 
 
+def load_embeddings(import_path):
+    # Read embeddings
+    return np.load(os.path.join(import_path, 'embeddings.npy'))
