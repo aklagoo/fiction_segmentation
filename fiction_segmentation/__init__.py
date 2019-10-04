@@ -1,1 +1,2 @@
-from fiction_segmentation import preprocessing, data
+from fiction_segmentation import preprocessing
+from fiction_segmentation import const

@@ -2,8 +2,6 @@ import gensim.models.word2vec as word2vec
 from fiction_segmentation import const
 from fiction_segmentation import preprocessing
 import multiprocessing
-import os
-import pickle
 
 
 class Word2Vec:
