@@ -17,6 +17,7 @@ class Word2Vec:
 
     def generate_embeddings(self, text, epochs=const.W2V_EPOCHS, export_path=const.W2V_DATA_PATH):
         sentences = preprocessing.stem(preprocessing.tokenize(text))
+        self.model.build_vocab(sentences)
         self.model.train(sentences, total_examples=self.model.corpus_count, epochs=epochs)
 
         # Save data to file
