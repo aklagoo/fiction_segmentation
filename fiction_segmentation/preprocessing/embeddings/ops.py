@@ -11,7 +11,7 @@ def clean_encode_indices(text, w2v_data_path=const.W2V_DATA_PATH):
     encoded_text = []
     # For each word in sentence, replace by number
     for sent in text:
-        encoded_text.append([word2idx[word] for word in sent])
+        encoded_text.append([word2idx[word] for word in sent if word in word2idx.keys()])
 
     return encoded_text
 
