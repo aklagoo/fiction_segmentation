@@ -5,14 +5,15 @@ def tokenize(text: str) -> list:
     """Splits text into lines, sentences and words"""
     tokenized_text = []
     for line in text.split('\n'):
-        for sentence in nltk.sent_tokenize(line):
-            # Split the sentence if a semi-colon is encountered without removing it
-            subsentences = [subsentence + ';' for subsentence in sentence.split(';') if subsentence]
-            subsentences[-1] = subsentences[-1][:-1]
+        if line != '':
+            for sentence in nltk.sent_tokenize(line):
+                # Split the sentence if a semi-colon is encountered without removing it
+                subsentences = [subsentence + ';' for subsentence in sentence.split(';') if subsentence]
+                subsentences[-1] = subsentences[-1][:-1]
 
-            # Word tokenize each subsentence
-            subsentences = [nltk.word_tokenize(subsentence) for subsentence in subsentences]
-            tokenized_text.extend(subsentences)
+                # Word tokenize each subsentence
+                subsentences = [nltk.word_tokenize(subsentence) for subsentence in subsentences]
+                tokenized_text.extend(subsentences)
 
     return tokenized_text
 
@@ -29,3 +30,7 @@ def stem(text):
         stemmed_text.append(stemmed_sentence)
 
     return stemmed_text
+
+
+def pad_sequence(sample, total_len):
+    return sample + [0]*(total_len-len(sample))

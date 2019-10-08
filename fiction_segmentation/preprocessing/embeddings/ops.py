@@ -11,7 +11,10 @@ def clean_encode_indices(text, w2v_data_path=const.W2V_DATA_PATH):
     encoded_text = []
     # For each word in sentence, replace by number
     for sent in text:
-        encoded_text.append([word2idx[word] for word in sent if word in word2idx])
+        encoded_sent = [word2idx[word] for word in sent if word in word2idx]
+        if encoded_sent is not None:
+            if len(encoded_sent) != 0:
+                encoded_text.append(encoded_sent)
 
     return encoded_text
 
