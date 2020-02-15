@@ -1,0 +1,1 @@
+from fiction_segmentation.core.Fit import fit
